@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../models/homePageModel.dart';
+import '../models/ticketModel.dart';
+import '../providers/listTicketProvider.dart';
 import '../widgets/ticketItemWidget.dart';
 export '../models/homePageModel.dart';
 
@@ -17,23 +19,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
     with TickerProviderStateMixin {
   late HomePageModel _model;
 
-  List<Map<String, dynamic>> ticketData = [
-    {
-      'color': Colors.blue,
-      'title': 'Ticket 1',
-      'price': '\$50',
-      'imageUrl':
-          'http://cdn.shopify.com/s/files/1/0616/4902/7271/products/ProAngler14_360_studio_topview_IKE_2022.png?v=1652724121',
-    },
-    {
-      'color': Colors.green,
-      'title': 'Ticket 2',
-      'price': '\$75',
-      'imageUrl':
-          'http://cdn.shopify.com/s/files/1/0616/4902/7271/products/ProAngler14_360_studio_topview_IKE_2022.png?v=1652724121',
-    },
-    // Thêm dữ liệu cho các TicketItem khác
-  ];
+  var imageAccUrl = "";
+  // "https://yt3.googleusercontent.com/vY3uYs71A_JwVcigyd2tVRHwuj05_cYktQSuzRCxta-9VFxHFtKjGrwG9WFi8ijXITBL3CwPQQ=s900-c-k-c0x00ffffff-no-rj";
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -91,6 +78,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
   @override
   Widget build(BuildContext context) {
+    final ticketProvider = TicketProvider();
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -121,22 +109,34 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       print('IconButton pressed ...');
                     },
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                        ),
-                        child: Image.asset(
-                          'assets/images/Group_22_(2).png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ],
+                  Container(
+                    width: 50,
+                    height: 50,
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: imageAccUrl.isNotEmpty
+                        ? Image.network(
+                            imageAccUrl,
+                            width: 160,
+                            height: 160,
+                            fit: BoxFit.cover,
+                          )
+                        : FlutterFlowIconButton(
+                            borderColor: Colors.transparent,
+                            borderRadius: 30,
+                            borderWidth: 1,
+                            buttonSize: 60,
+                            icon: Icon(
+                              Icons.login,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                            onPressed: () {
+                              // Thực hiện hành động khi nhấn vào biểu tượng đăng nhập
+                            },
+                          ),
                   ),
                 ],
               ),
@@ -158,15 +158,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: ticketData.length,
+                itemCount: ticketProvider.ticketData.length,
                 itemBuilder: (context, index) {
-                  final item = ticketData[index];
-                  return TicketItem(
-                    color: item['color'],
-                    title: item['title'],
-                    price: item['price'],
-                    imageUrl: item['imageUrl'],
-                  );
+                  final TicketModel ticket = ticketProvider.ticketData[index];
+                  return TicketItem(ticket: ticket);
                 },
               ),
             ),
