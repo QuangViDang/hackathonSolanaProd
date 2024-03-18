@@ -36,6 +36,15 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+  flutterflow_ui:
+  mapbox_search:
+  flutter_animate:
+  flutter_rating_bar:
+  font_awesome_flutter:
+  google_fonts:
+  provider:
+  flutter_svg: ^2.0.9
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
