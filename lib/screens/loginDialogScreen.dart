@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import '../widgets/loginPageWidget.dart';
 
 Future<Object?> customSigninDialog(BuildContext context,
@@ -34,14 +33,20 @@ Future<Object?> customSigninDialog(BuildContext context,
                   children: [
                     ListView(children: [
                       const Text(
-                        "Sign In",
+                        "Connect Wallet",
                         style: TextStyle(fontSize: 34, fontFamily: "Poppins"),
                       ),
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 16),
                         child: Text(
-                          "Please Use a school-issued Microsoft account, Other accounts are currently in development",
+                          "Connect wallet with GAMESHIFT",
                           textAlign: TextAlign.center,
+                        ),
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          "https://preview.redd.it/announcing-gameshift-accelerating-game-development-on-solana-v0-6tgdt19ebycb1.png?width=680&format=png&auto=webp&s=b0eaf703a820ec41a27cca733850f279a9ae8044",
                         ),
                       ),
                       const SignInForm(),
@@ -53,7 +58,7 @@ Future<Object?> customSigninDialog(BuildContext context,
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 16),
                             child: Text(
-                              "OR",
+                              "or register a new account",
                               style: TextStyle(color: Colors.black26),
                             ),
                           ),
@@ -65,12 +70,7 @@ Future<Object?> customSigninDialog(BuildContext context,
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0, bottom: 24),
                         child: ElevatedButton.icon(
-                          onPressed: () {
-                            // Navigator.push(
-                            //   context,
-                            //   LoginWithMicrosoft_View.route(),
-                            // );
-                          },
+                          onPressed: () {},
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Color.fromARGB(255, 0, 4, 245),
                               minimumSize: const Size(double.infinity, 56),
@@ -85,19 +85,11 @@ Future<Object?> customSigninDialog(BuildContext context,
                             color: Color(0xFFFE0037),
                           ),
                           label: const Text(
-                            "Sign up with Microsoft",
+                            "Register",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
-                      IconButton(
-                          padding: EdgeInsets.zero,
-                          onPressed: () {},
-                          icon: SvgPicture.asset(
-                            "assets/icons/email_box.svg",
-                            height: 64,
-                            width: 64,
-                          )),
                     ]),
                     const Positioned(
                       left: 0,

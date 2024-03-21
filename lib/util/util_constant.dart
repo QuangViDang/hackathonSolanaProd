@@ -1,4 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:palette_generator/palette_generator.dart';
+
+Future<Color> getDominantColorFromImageUrl(String imageUrl) async {
+  final PaletteGenerator paletteGenerator =
+      await PaletteGenerator.fromImageProvider(
+    NetworkImage(imageUrl),
+  );
+  return paletteGenerator.dominantColor?.color ?? Colors.white;
+}
 
 Color calculateContrastColor(Color backgroundColor) {
   final double threshold = 128; // Ngưỡng giá trị để xác định màu chữ tương phản

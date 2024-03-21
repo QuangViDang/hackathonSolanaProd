@@ -1,6 +1,6 @@
+import 'package:auto_tickets_solana/screens/loginDialogScreen.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 import '../models/homePageModel.dart';
 import '../models/ticketModel.dart';
@@ -19,49 +19,32 @@ class _HomePageWidgetState extends State<HomePageWidget>
     with TickerProviderStateMixin {
   late HomePageModel _model;
 
-  var imageAccUrl = "";
-  // "https://yt3.googleusercontent.com/vY3uYs71A_JwVcigyd2tVRHwuj05_cYktQSuzRCxta-9VFxHFtKjGrwG9WFi8ijXITBL3CwPQQ=s900-c-k-c0x00ffffff-no-rj";
+  var isSignInDialogShown = false;
+
+  var imageAccUrl =
+      "https://upload.wikimedia.org/wikipedia/en/b/b9/Solana_logo.png";
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final animationsMap = {
-    'imageOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        ScaleEffect(
-          curve: Curves.easeInOut,
-          delay: 300.ms,
-          duration: 600.ms,
-          begin: Offset(0, 0),
-          end: Offset(1, 1),
-        ),
-      ],
-    ),
-    'imageOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        ScaleEffect(
-          curve: Curves.easeInOut,
-          delay: 300.ms,
-          duration: 600.ms,
-          begin: Offset(0, 0),
-          end: Offset(1, 1),
-        ),
-      ],
-    ),
-    'imageOnPageLoadAnimation3': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        ScaleEffect(
-          curve: Curves.easeInOut,
-          delay: 300.ms,
-          duration: 600.ms,
-          begin: Offset(0, 0),
-          end: Offset(1, 1),
-        ),
-      ],
-    ),
-  };
+  void loginOnPress() {
+    Future.delayed(
+      const Duration(milliseconds: 800),
+      () {
+        setState(() {
+          isSignInDialogShown = true;
+        });
+        customSigninDialog(context, onClosed: (_) {
+          setState(() {
+            isSignInDialogShown = false;
+          });
+        });
+      },
+    );
+  }
+
+  void showProfile() {
+    loginOnPress();
+  }
 
   @override
   void initState() {
@@ -72,7 +55,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
   }
 
@@ -105,9 +87,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       color: FlutterFlowTheme.of(context).primaryText,
                       size: 30,
                     ),
-                    onPressed: () {
-                      print('IconButton pressed ...');
-                    },
+                    onPressed: () {},
                   ),
                   Container(
                     width: 50,
@@ -117,11 +97,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       shape: BoxShape.circle,
                     ),
                     child: imageAccUrl.isNotEmpty
-                        ? Image.network(
-                            imageAccUrl,
-                            width: 160,
-                            height: 160,
-                            fit: BoxFit.cover,
+                        ? GestureDetector(
+                            onTap: () {
+                              print("Show Profile");
+                              showProfile();
+                            },
+                            child: Image.network(
+                              imageAccUrl,
+                              width: 160,
+                              height: 160,
+                              fit: BoxFit.cover,
+                            ),
                           )
                         : FlutterFlowIconButton(
                             borderColor: Colors.transparent,
@@ -129,12 +115,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             borderWidth: 1,
                             buttonSize: 60,
                             icon: Icon(
-                              Icons.login,
+                              Icons.access_alarm_outlined,
                               color: Colors.white,
                               size: 30,
                             ),
                             onPressed: () {
-                              // Thực hiện hành động khi nhấn vào biểu tượng đăng nhập
+                              print("LOGIN");
+                              loginOnPress();
                             },
                           ),
                   ),

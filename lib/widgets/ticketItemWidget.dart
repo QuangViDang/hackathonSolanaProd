@@ -2,8 +2,7 @@ import 'package:auto_tickets_solana/models/ticketModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 
-import '../util/cacularColor.dart';
-import '../util/imageDominantColor.dart';
+import '../util/util_constant.dart';
 
 class TicketItem extends StatelessWidget {
   final TicketModel ticket;

@@ -129,7 +129,7 @@ class _SignInFormState extends State<SignInForm> {
                       color: Color(0xFFFE0037),
                     ),
                     label: const Text(
-                      "Sign In",
+                      "Connect",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
