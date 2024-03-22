@@ -1,12 +1,15 @@
-import 'package:auto_tickets_solana/screens/loginDialogScreen.dart';
+import 'package:auto_tickets_solana/models/userModel.dart';
+import 'package:auto_tickets_solana/providers/userWalletProvider.dart';
+import 'package:auto_tickets_solana/screens/connectWallet/loginDialogScreen.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../models/homePageModel.dart';
-import '../models/ticketModel.dart';
-import '../providers/listTicketProvider.dart';
-import '../widgets/ticketItemWidget.dart';
-export '../models/homePageModel.dart';
+import '../../models/homePageModel.dart';
+import '../../models/ticketModel.dart';
+import '../../providers/listTicketProvider.dart';
+import '../../widgets/ticketItemWidget.dart';
+export '../../models/homePageModel.dart';
 
 class HomePageWidget extends StatefulWidget {
   const HomePageWidget({super.key});
@@ -21,6 +24,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
   var isSignInDialogShown = false;
 
+  AuthModel? userAuthModel;
   var imageAccUrl =
       "https://upload.wikimedia.org/wikipedia/en/b/b9/Solana_logo.png";
 
@@ -33,11 +37,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
         setState(() {
           isSignInDialogShown = true;
         });
-        customSigninDialog(context, onClosed: (_) {
-          setState(() {
-            isSignInDialogShown = false;
-          });
-        });
+        Navigator.push(context, ConnectWallet.route());
       },
     );
   }
@@ -61,6 +61,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
   @override
   Widget build(BuildContext context) {
     final ticketProvider = TicketProvider();
+    final authProvider = Provider.of<AuthDataProvider>(context);
+    final userAuthModel = authProvider.getAuth();
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -96,7 +98,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                     ),
-                    child: imageAccUrl.isNotEmpty
+                    child: userAuthModel!.email!.isNotEmpty
                         ? GestureDetector(
                             onTap: () {
                               print("Show Profile");

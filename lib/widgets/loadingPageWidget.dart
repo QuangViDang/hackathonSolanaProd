@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LoadingPage extends StatefulWidget {
-  LoadingPage({required Key key, required this.title}) : super(key: key);
+  LoadingPage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 

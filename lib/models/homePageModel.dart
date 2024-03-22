@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 
-import '../screens/homePageScreen.dart';
+import '../screens/home/homePageScreen.dart';
 
 class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   ///  State fields for stateful widgets in this page.

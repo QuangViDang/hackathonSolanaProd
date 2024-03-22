@@ -81,10 +81,11 @@ class _SignInFormState extends State<SignInForm> {
                     },
                     onSaved: (email) {},
                     decoration: InputDecoration(
-                        prefixIcon: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: SvgPicture.asset("assets/icons/email.svg"),
-                    )),
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: SvgPicture.asset("assets/icons/email.svg"),
+                      ),
+                    ),
                   ),
                 ),
                 const Text(
@@ -129,7 +130,7 @@ class _SignInFormState extends State<SignInForm> {
                       color: Color(0xFFFE0037),
                     ),
                     label: const Text(
-                      "Connect",
+                      "CONNECT WALLET",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),

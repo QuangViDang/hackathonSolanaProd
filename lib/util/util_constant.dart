@@ -18,3 +18,30 @@ Color calculateContrastColor(Color backgroundColor) {
   // Xác định màu chữ dựa trên giá trị độ sáng của màu nền
   return backgroundBrightness < threshold ? Colors.white : Colors.black;
 }
+
+enum HttpStatus {
+  success,
+  unauthorized,
+  notFound,
+  internalServerError,
+  // Thêm các mã trạng thái HTTP khác tại đây nếu cần
+}
+
+// Hàm để chuyển mã trạng thái HTTP thành mã mã trạng thái enum tương ứng
+HttpStatus? parseHttpStatus(int statusCode) {
+  switch (statusCode) {
+    case 200:
+      return HttpStatus.success;
+    case 201:
+      return HttpStatus.success;
+    case 401:
+      return HttpStatus.unauthorized;
+    case 404:
+      return HttpStatus.notFound;
+    case 500:
+      return HttpStatus.internalServerError;
+    // Thêm các trường hợp khác nếu cần
+    default:
+      return null;
+  }
+}
