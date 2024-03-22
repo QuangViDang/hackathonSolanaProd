@@ -19,8 +19,9 @@ Color calculateContrastColor(Color backgroundColor) {
   return backgroundBrightness < threshold ? Colors.white : Colors.black;
 }
 
-enum HttpStatus {
-  success,
+enum StatusCode {
+  successGET,
+  successPOST,
   unauthorized,
   notFound,
   internalServerError,
@@ -28,27 +29,27 @@ enum HttpStatus {
 }
 
 // Hàm để chuyển mã trạng thái HTTP thành mã mã trạng thái enum tương ứng
-HttpStatus? parseHttpStatus(int statusCode) {
+StatusCode? parseStatusCode(int statusCode) {
   switch (statusCode) {
     case 200:
-      return HttpStatus.success;
+      return StatusCode.successGET;
     case 201:
-      return HttpStatus.success;
+      return StatusCode.successPOST;
     case 401:
-      return HttpStatus.unauthorized;
+      return StatusCode.unauthorized;
     case 404:
-      return HttpStatus.notFound;
+      return StatusCode.notFound;
     case 500:
-      return HttpStatus.internalServerError;
+      return StatusCode.internalServerError;
     // Thêm các trường hợp khác nếu cần
     default:
       return null;
   }
 }
 
-class Status {
-  bool isSuccess;
+class StatusMessage {
+  bool isSuccess = false;
   String message = "Successfully";
 
-  Status(this.isSuccess, this.message);
+  StatusMessage(this.isSuccess, this.message);
 }

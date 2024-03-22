@@ -1,4 +1,5 @@
 import 'package:auto_tickets_solana/apis/auth_api.dart';
+import 'package:auto_tickets_solana/screens/home/ticketPageScreen.dart';
 import 'package:auto_tickets_solana/util/util_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class _SignInFormState extends State<SignInForm> {
   bool isShowConfetti = false;
   String email = '';
   String reference = '';
-  late Status statusRes;
+  late StatusMessage statusRes;
 
   late SMITrigger check;
   late SMITrigger error;
@@ -45,24 +46,21 @@ class _SignInFormState extends State<SignInForm> {
       Duration(seconds: 1),
       () async {
         if (_formKey.currentState!.validate()) {
-          // show success
+          _formKey.currentState!.save();
           check.fire();
-          Future.delayed(Duration(seconds: 2), () {
-            setState(() {
-              isShowLoading = false;
-            });
-            confetti.fire();
-          });
-          statusRes = (await checkAuth(email, reference))!;
-          if (statusRes.isSuccess) {
-            check.fire();
-            Future.delayed(Duration(seconds: 2), () {
-              setState(() {
-                isShowLoading = false;
-              });
+          Future.delayed(
+            Duration(seconds: 2),
+            () {
+              setState(
+                () {
+                  isShowLoading = false;
+                },
+              );
               confetti.fire();
-            });
-          } else {
+            },
+          );
+          statusRes = (await checkAuth(email, reference))!;
+          if (!statusRes.isSuccess) {
             error.fire();
             Future.delayed(
               Duration(seconds: 2),
@@ -72,6 +70,8 @@ class _SignInFormState extends State<SignInForm> {
                 });
               },
             );
+          } else {
+            Navigator.push(context, TicketPageWidget.route());
           }
         } else {
           error.fire();
@@ -110,10 +110,8 @@ class _SignInFormState extends State<SignInForm> {
                     }
                     return null;
                   },
-                  onSaved: (email) {
-                    setState(() {
-                      email = email;
-                    });
+                  onSaved: (value) {
+                    email = value!;
                   },
                   decoration: InputDecoration(
                     prefixIcon: Padding(
@@ -137,9 +135,7 @@ class _SignInFormState extends State<SignInForm> {
                     return null;
                   },
                   onSaved: (password) {
-                    setState(() {
-                      reference = password!;
-                    });
+                    reference = password!;
                   },
                   obscureText: true,
                   decoration: InputDecoration(
