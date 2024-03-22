@@ -36,25 +36,28 @@ class _SignInFormState extends State<SignInForm> {
       isShowLoading = true;
       isShowConfetti = true;
     });
-    Future.delayed(Duration(seconds: 1), () {
-      if (_formKey.currentState!.validate()) {
-        // show success
-        check.fire();
-        Future.delayed(Duration(seconds: 2), () {
-          setState(() {
-            isShowLoading = false;
+    Future.delayed(
+      Duration(seconds: 1),
+      () {
+        if (_formKey.currentState!.validate()) {
+          // show success
+          check.fire();
+          Future.delayed(Duration(seconds: 2), () {
+            setState(() {
+              isShowLoading = false;
+            });
+            confetti.fire();
           });
-          confetti.fire();
-        });
-      } else {
-        error.fire();
-        Future.delayed(Duration(seconds: 2), () {
-          setState(() {
-            isShowLoading = false;
+        } else {
+          error.fire();
+          Future.delayed(Duration(seconds: 2), () {
+            setState(() {
+              isShowLoading = false;
+            });
           });
-        });
-      }
-    });
+        }
+      },
+    );
   }
 
   @override
@@ -62,81 +65,82 @@ class _SignInFormState extends State<SignInForm> {
     return Stack(
       children: [
         Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Email",
-                  style: TextStyle(color: Colors.black54),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 16),
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "";
-                      }
-                      return null;
-                    },
-                    onSaved: (email) {},
-                    decoration: InputDecoration(
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: SvgPicture.asset("assets/icons/email.svg"),
-                      ),
-                    ),
-                  ),
-                ),
-                const Text(
-                  "Password",
-                  style: TextStyle(color: Colors.black54),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 16),
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "";
-                      }
-                      return null;
-                    },
-                    onSaved: (password) {},
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        prefixIcon: Padding(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Email",
+                style: TextStyle(color: Colors.black54),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0, bottom: 16),
+                child: TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "";
+                    }
+                    return null;
+                  },
+                  onSaved: (email) {},
+                  decoration: InputDecoration(
+                    prefixIcon: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: SvgPicture.asset("assets/icons/password.svg"),
-                    )),
+                      child: SvgPicture.asset("assets/icons/email.svg"),
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 24),
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      signIn(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 0, 4, 245),
-                        minimumSize: const Size(double.infinity, 56),
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(25),
-                                bottomRight: Radius.circular(25),
-                                bottomLeft: Radius.circular(25)))),
-                    icon: const Icon(
-                      CupertinoIcons.arrow_right,
-                      color: Color(0xFFFE0037),
-                    ),
-                    label: const Text(
-                      "CONNECT WALLET",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+              ),
+              const Text(
+                "Password",
+                style: TextStyle(color: Colors.black54),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0, bottom: 16),
+                child: TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "";
+                    }
+                    return null;
+                  },
+                  onSaved: (password) {},
+                  obscureText: true,
+                  decoration: InputDecoration(
+                      prefixIcon: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: SvgPicture.asset("assets/icons/password.svg"),
+                  )),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0, bottom: 24),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    signIn(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 0, 4, 245),
+                      minimumSize: const Size(double.infinity, 56),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(25),
+                              bottomRight: Radius.circular(25),
+                              bottomLeft: Radius.circular(25)))),
+                  icon: const Icon(
+                    CupertinoIcons.arrow_right,
+                    color: Color(0xFFFE0037),
                   ),
-                )
-              ],
-            )),
+                  label: const Text(
+                    "Connect Wallet",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
         isShowLoading
             ? CustomPositioned(
                 child: RiveAnimation.asset(

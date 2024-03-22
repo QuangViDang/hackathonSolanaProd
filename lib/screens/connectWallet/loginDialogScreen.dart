@@ -1,31 +1,7 @@
+import 'package:auto_tickets_solana/screens/connectWallet/registerDialogScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/loginPageWidget.dart';
-
-class ConnectWallet extends StatefulWidget {
-  const ConnectWallet({super.key});
-  static route() => MaterialPageRoute(
-        builder: (context) => const ConnectWallet(),
-      );
-  @override
-  State<ConnectWallet> createState() => _ConnectWalletState();
-}
-
-class _ConnectWalletState extends State<ConnectWallet> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            customSigninDialog(context, onClosed: (_) {});
-          },
-          child: Text('Open Sign In Dialog'),
-        ),
-      ),
-    );
-  }
-}
 
 Future<Object?> customSigninDialog(BuildContext context,
     {required ValueChanged onClosed}) {
@@ -56,66 +32,66 @@ Future<Object?> customSigninDialog(BuildContext context,
           body: Stack(
             clipBehavior: Clip.none,
             children: [
-              ListView(children: [
-                const Text(
-                  "Connect Wallet",
-                  style: TextStyle(fontSize: 34, fontFamily: "Poppins"),
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  child: Text(
-                    "Connect wallet with GAMESHIFT",
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    "https://preview.redd.it/announcing-gameshift-accelerating-game-development-on-solana-v0-6tgdt19ebycb1.png?width=680&format=png&auto=webp&s=b0eaf703a820ec41a27cca733850f279a9ae8044",
-                  ),
-                ),
-                const SignInForm(),
-                const Row(
-                  children: [
-                    Expanded(
-                      child: Divider(),
+              Center(
+                child: ListView(children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.network(
+                      "https://preview.redd.it/announcing-gameshift-accelerating-game-development-on-solana-v0-6tgdt19ebycb1.png?width=680&format=png&auto=webp&s=b0eaf703a820ec41a27cca733850f279a9ae8044",
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(
-                        "or register a new account",
-                        style: TextStyle(color: Colors.black26),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    child: Text(
+                      "Connect wallet with GAMESHIFT",
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  const SignInForm(),
+                  const Row(
+                    children: [
+                      Expanded(
+                        child: Divider(),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          "or register a new account",
+                          style: TextStyle(color: Colors.black26),
+                        ),
+                      ),
+                      Expanded(
+                        child: Divider(),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0, bottom: 24),
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        registerWalletUser(context, onClosed: onClosed);
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 87, 90, 255),
+                          minimumSize: const Size(double.infinity, 56),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(25),
+                                  bottomRight: Radius.circular(25),
+                                  bottomLeft: Radius.circular(25)))),
+                      icon: const Icon(
+                        CupertinoIcons.arrow_right,
+                        color: Color(0xFFFE0037),
+                      ),
+                      label: const Text(
+                        "Register",
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Expanded(
-                      child: Divider(),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 24),
-                  child: ElevatedButton.icon(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 0, 4, 245),
-                        minimumSize: const Size(double.infinity, 56),
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(25),
-                                bottomRight: Radius.circular(25),
-                                bottomLeft: Radius.circular(25)))),
-                    icon: const Icon(
-                      CupertinoIcons.arrow_right,
-                      color: Color(0xFFFE0037),
-                    ),
-                    label: const Text(
-                      "Register",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
                   ),
-                ),
-              ]),
+                ]),
+              ),
               const Positioned(
                 left: 0,
                 right: 0,

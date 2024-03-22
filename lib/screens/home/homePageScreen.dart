@@ -14,6 +14,10 @@ export '../../models/homePageModel.dart';
 class HomePageWidget extends StatefulWidget {
   const HomePageWidget({super.key});
 
+  static route() => MaterialPageRoute(
+        builder: (context) => HomePageWidget(),
+      );
+
   @override
   State<HomePageWidget> createState() => _HomePageWidgetState();
 }
@@ -37,7 +41,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
         setState(() {
           isSignInDialogShown = true;
         });
-        Navigator.push(context, ConnectWallet.route());
+        customSigninDialog(context, onClosed: (_) {});
       },
     );
   }
@@ -80,7 +84,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   FlutterFlowIconButton(
-                    borderColor: Colors.transparent,
+                    borderColor: Colors.white,
                     borderRadius: 30,
                     borderWidth: 1,
                     buttonSize: 60,
@@ -98,34 +102,31 @@ class _HomePageWidgetState extends State<HomePageWidget>
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                     ),
-                    child: userAuthModel!.email!.isNotEmpty
-                        ? GestureDetector(
-                            onTap: () {
-                              print("Show Profile");
-                              showProfile();
-                            },
-                            child: Image.network(
+                    child: InkWell(
+                      onTap: () {
+                        if (userAuthModel != null &&
+                            userAuthModel.email!.isNotEmpty) {
+                          // Xử lý khi nhấn vào hồ sơ người dùng
+                          showProfile();
+                        } else {
+                          // Xử lý khi nhấn vào đăng nhập
+                          loginOnPress();
+                        }
+                      },
+                      child: userAuthModel != null &&
+                              userAuthModel.email!.isNotEmpty
+                          ? Image.network(
                               imageAccUrl,
                               width: 160,
                               height: 160,
                               fit: BoxFit.cover,
-                            ),
-                          )
-                        : FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 30,
-                            borderWidth: 1,
-                            buttonSize: 60,
-                            icon: Icon(
-                              Icons.access_alarm_outlined,
-                              color: Colors.white,
+                            )
+                          : Icon(
+                              Icons.account_circle_outlined,
+                              color: Colors.black,
                               size: 30,
                             ),
-                            onPressed: () {
-                              print("LOGIN");
-                              loginOnPress();
-                            },
-                          ),
+                    ),
                   ),
                 ],
               ),
@@ -147,9 +148,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: ticketProvider.ticketData.length,
+                itemCount: ticketProvider.listTicketData.length,
                 itemBuilder: (context, index) {
-                  final TicketModel ticket = ticketProvider.ticketData[index];
+                  final TicketModel ticket =
+                      ticketProvider.listTicketData[index];
                   return TicketItem(ticket: ticket);
                 },
               ),

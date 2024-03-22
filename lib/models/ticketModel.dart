@@ -1,12 +1,18 @@
 // Định nghĩa model dữ liệu cho mỗi vé
 class TicketModel {
-  final String title;
-  final String price;
-  final String imageUrl;
+  String title;
+  String imageUrl;
+  String address;
+  String timeEvent;
+  String aboutEvent;
+  String price;
 
   TicketModel({
     required this.title,
-    required this.price,
     required this.imageUrl,
+    required this.address,
+    required this.timeEvent,
+    required this.aboutEvent,
+    required this.price,
   });
 }

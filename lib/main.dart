@@ -1,3 +1,6 @@
+import 'package:provider/provider.dart';
+
+import 'providers/userWalletProvider.dart';
 import 'screens/home/homePageScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -10,10 +13,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Halloween Party',
-      home: Scaffold(
-        body: HomePageWidget(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthDataProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Halloween Party',
+        home: const HomePageWidget(),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:auto_tickets_solana/screens/connectWallet/loginDialogScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/loginPageWidget.dart';
@@ -32,21 +33,17 @@ Future<Object?> registerWalletUser(BuildContext context,
             clipBehavior: Clip.none,
             children: [
               ListView(children: [
-                const Text(
-                  "Register Wallet",
-                  style: TextStyle(fontSize: 34, fontFamily: "Poppins"),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    "https://preview.redd.it/announcing-gameshift-accelerating-game-development-on-solana-v0-6tgdt19ebycb1.png?width=680&format=png&auto=webp&s=b0eaf703a820ec41a27cca733850f279a9ae8044",
+                  ),
                 ),
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 16),
                   child: Text(
                     "Register wallet with GAMESHIFT",
                     textAlign: TextAlign.center,
-                  ),
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    "https://preview.redd.it/announcing-gameshift-accelerating-game-development-on-solana-v0-6tgdt19ebycb1.png?width=680&format=png&auto=webp&s=b0eaf703a820ec41a27cca733850f279a9ae8044",
                   ),
                 ),
                 const SignInForm(),
@@ -58,7 +55,7 @@ Future<Object?> registerWalletUser(BuildContext context,
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
-                        "or register a new account",
+                        "or login wallet",
                         style: TextStyle(color: Colors.black26),
                       ),
                     ),
@@ -70,9 +67,11 @@ Future<Object?> registerWalletUser(BuildContext context,
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0, bottom: 24),
                   child: ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      customSigninDialog(context, onClosed: onClosed);
+                    },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 0, 4, 245),
+                        backgroundColor: Color.fromARGB(255, 87, 90, 255),
                         minimumSize: const Size(double.infinity, 56),
                         shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.only(
@@ -85,7 +84,7 @@ Future<Object?> registerWalletUser(BuildContext context,
                       color: Color(0xFFFE0037),
                     ),
                     label: const Text(
-                      "Register",
+                      "Login Wallet",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),

@@ -1,4 +1,5 @@
 import 'package:auto_tickets_solana/models/ticketModel.dart';
+import 'package:auto_tickets_solana/screens/home/ticketPageScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 
@@ -44,7 +45,9 @@ class TicketItem extends StatelessWidget {
                         focusColor: Colors.transparent,
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(context, TicketPageWidget.route());
+                        },
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.end,
