@@ -45,3 +45,10 @@ HttpStatus? parseHttpStatus(int statusCode) {
       return null;
   }
 }
+
+class Status {
+  bool isSuccess;
+  String message = "Successfully";
+
+  Status(this.isSuccess, this.message);
+}

@@ -1,7 +1,7 @@
 import 'package:auto_tickets_solana/screens/connectWallet/registerDialogScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../widgets/loginPageWidget.dart';
+import '../../widgets/signInFormWidget.dart';
 
 Future<Object?> customSigninDialog(BuildContext context,
     {required ValueChanged onClosed}) {

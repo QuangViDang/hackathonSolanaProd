@@ -1,3 +1,5 @@
+import 'package:auto_tickets_solana/apis/auth_api.dart';
+import 'package:auto_tickets_solana/util/util_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,6 +19,9 @@ class _SignInFormState extends State<SignInForm> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isShowLoading = false;
   bool isShowConfetti = false;
+  String email = '';
+  String reference = '';
+  late Status statusRes;
 
   late SMITrigger check;
   late SMITrigger error;
@@ -38,7 +43,7 @@ class _SignInFormState extends State<SignInForm> {
     });
     Future.delayed(
       Duration(seconds: 1),
-      () {
+      () async {
         if (_formKey.currentState!.validate()) {
           // show success
           check.fire();
@@ -48,13 +53,36 @@ class _SignInFormState extends State<SignInForm> {
             });
             confetti.fire();
           });
+          statusRes = (await checkAuth(email, reference))!;
+          if (statusRes.isSuccess) {
+            check.fire();
+            Future.delayed(Duration(seconds: 2), () {
+              setState(() {
+                isShowLoading = false;
+              });
+              confetti.fire();
+            });
+          } else {
+            error.fire();
+            Future.delayed(
+              Duration(seconds: 2),
+              () {
+                setState(() {
+                  isShowLoading = false;
+                });
+              },
+            );
+          }
         } else {
           error.fire();
-          Future.delayed(Duration(seconds: 2), () {
-            setState(() {
-              isShowLoading = false;
-            });
-          });
+          Future.delayed(
+            Duration(seconds: 2),
+            () {
+              setState(() {
+                isShowLoading = false;
+              });
+            },
+          );
         }
       },
     );
@@ -82,7 +110,11 @@ class _SignInFormState extends State<SignInForm> {
                     }
                     return null;
                   },
-                  onSaved: (email) {},
+                  onSaved: (email) {
+                    setState(() {
+                      email = email;
+                    });
+                  },
                   decoration: InputDecoration(
                     prefixIcon: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -104,7 +136,11 @@ class _SignInFormState extends State<SignInForm> {
                     }
                     return null;
                   },
-                  onSaved: (password) {},
+                  onSaved: (password) {
+                    setState(() {
+                      reference = password!;
+                    });
+                  },
                   obscureText: true,
                   decoration: InputDecoration(
                       prefixIcon: Padding(

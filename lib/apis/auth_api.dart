@@ -4,9 +4,10 @@ import 'dart:io';
 import '../constants/constant.dart';
 import '../util/util_constant.dart';
 
-Future<void> getPassword(email, password) async {
+Future<Status?> checkAuth(email, reference) async {
+  Status? statusResponse;
   String endpiont = GameShiftContants.urlGameShift;
-  String url = endpiont + password;
+  String url = endpiont + reference;
   String api_key = GameShiftContants.x_api_key;
 
   try {
@@ -20,13 +21,22 @@ Future<void> getPassword(email, password) async {
     if (parseHttpStatus(response.statusCode) == HttpStatus.success) {
       // Phân tích phản hồi JSON
       Map<String, dynamic> responseData = jsonDecode(response as String);
-      String referenceId = responseData['referenceId'];
-      String email = responseData['email'];
+      String referenceIdGet = responseData['referenceId'];
+      String emailGet = responseData['email'];
+      if (email == emailGet && reference == referenceIdGet) {
+        statusResponse?.isSuccess = true;
+        return statusResponse;
+      }
     } else {
       print('Failed with status code: ${response.statusCode}');
+      statusResponse?.isSuccess = true;
+      statusResponse?.message = "${response.statusCode}";
+      return statusResponse;
     }
   } catch (e) {
     print('Error: $e');
+    statusResponse?.isSuccess = true;
+    statusResponse?.message = e as String;
+    return statusResponse;
   }
 }
-
