@@ -1,6 +1,6 @@
 import 'package:provider/provider.dart';
-
 import 'providers/userWalletProvider.dart';
+import 'providers/walletAddressProvider.dart';
 import 'screens/home/homePageScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +16,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthDataProvider()),
+        ChangeNotifierProvider(
+            create: (context) => WalletAddressDataProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

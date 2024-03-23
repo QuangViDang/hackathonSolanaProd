@@ -29,9 +29,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
   var isSignInDialogShown = false;
 
   AuthModel? userAuthModel;
-  var imageAccUrl =
+  String imageAccUrl = ''
       "https://upload.wikimedia.org/wikipedia/en/b/b9/Solana_logo.png";
-
+  String imagePremiumUrl =
+      "https://img.pikbest.com/png-images/qiantu/vip-golden-crown-icon-member-golden-crown-champion-first-ranking-exclusive-icon_2688758.png!sw800";
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   void loginOnPress() {
@@ -67,97 +68,114 @@ class _HomePageWidgetState extends State<HomePageWidget>
     final ticketProvider = TicketProvider();
     final authProvider = Provider.of<AuthDataProvider>(context);
     final userAuthModel = authProvider.getAuth();
-    return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        body: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 40, 20, 10),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  FlutterFlowIconButton(
-                    borderColor: Colors.white,
-                    borderRadius: 30,
-                    borderWidth: 1,
-                    buttonSize: 60,
-                    icon: Icon(
-                      Icons.menu_rounded,
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      size: 30,
+    return Scaffold(
+      body: GestureDetector(
+        onTap: () => _model.unfocusNode.canRequestFocus
+            ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+            : FocusScope.of(context).unfocus(),
+        child: Scaffold(
+          key: scaffoldKey,
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          body: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 40, 20, 10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: InkWell(
+                        onTap: () {},
+                        child: userAuthModel != null &&
+                                userAuthModel.email!.isNotEmpty
+                            ? Image.network(
+                                imageAccUrl,
+                                width: 130,
+                                height: 130,
+                                fit: BoxFit.cover,
+                              )
+                            : Icon(
+                                Icons.account_circle_outlined,
+                                color: Colors.black,
+                                size: 40,
+                              ),
+                      ),
                     ),
-                    onPressed: () {},
-                  ),
-                  Container(
-                    width: 50,
-                    height: 50,
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        if (userAuthModel != null &&
-                            userAuthModel.email!.isNotEmpty) {
-                          // Xử lý khi nhấn vào hồ sơ người dùng
-                          showProfile();
-                        } else {
-                          // Xử lý khi nhấn vào đăng nhập
-                          loginOnPress();
-                        }
-                      },
-                      child: userAuthModel != null &&
-                              userAuthModel.email!.isNotEmpty
-                          ? Image.network(
-                              imageAccUrl,
-                              width: 160,
-                              height: 160,
-                              fit: BoxFit.cover,
-                            )
-                          : Icon(
-                              Icons.account_circle_outlined,
-                              color: Colors.black,
-                              size: 30,
-                            ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(
-                    'Rent a Kayak',
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Outfit',
-                          fontSize: 25,
+                    Container(
+                      width: 50,
+                      height: 50,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: InkWell(
+                        onTap: () {},
+                        child: Image.network(
+                          imagePremiumUrl,
+                          width: 130,
+                          height: 130,
+                          fit: BoxFit.cover,
                         ),
-                  ),
-                ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: ticketProvider.listTicketData.length,
-                itemBuilder: (context, index) {
-                  final TicketModel ticket =
-                      ticketProvider.listTicketData[index];
-                  return TicketItem(ticket: ticket);
-                },
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      'Analos Tekcit',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Outfit',
+                            fontSize: 25,
+                          ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              Expanded(
+                child: ListView.builder(
+                  itemCount: ticketProvider.listTicketData.length,
+                  itemBuilder: (context, index) {
+                    final TicketModel ticket =
+                        ticketProvider.listTicketData[index];
+                    return TicketItem(ticket: ticket);
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Handle FloatingActionButton click
+        },
+        child: Container(
+          width: 60,
+          height: 60,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            gradient:
+                LinearGradient(colors: [Color(0xffFFE072), Color(0xffFEBE19)]),
+          ),
+          child: const Icon(
+            Icons.add,
+            color: Colors.orange,
+          ),
+        ),
+        shape: CircleBorder(),
       ),
     );
   }

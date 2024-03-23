@@ -1,10 +1,12 @@
 import 'package:auto_tickets_solana/apis/auth_api.dart';
 import 'package:auto_tickets_solana/models/userModel.dart';
+import 'package:auto_tickets_solana/screens/home/homePageScreen.dart';
 import 'package:auto_tickets_solana/screens/home/ticketPageScreen.dart';
 import 'package:auto_tickets_solana/util/util_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 
 import '../providers/walletAddressProvider.dart';
@@ -62,12 +64,9 @@ class _SignInFormState extends State<SignInForm> {
               confetti.fire();
             },
           );
-          statusRes = (await checkAuth(email, reference))!;
-          final walletAddressProvider = await WalletAddressDataProvider();
-          WalletAddressModel? addressCode =
-              await walletAddressProvider.getWalletAddress();
-          if (!statusRes.isSuccess || addressCode == null) {
-            print("Loading");
+          statusRes = (await checkAuth(context, email, reference))!;
+          if (!statusRes.isSuccess) {
+            // print("Loading");
             error.fire();
             Future.delayed(
               Duration(seconds: 2),
@@ -78,11 +77,11 @@ class _SignInFormState extends State<SignInForm> {
               },
             );
           } else {
-            print("Move");
-            Navigator.push(context, TicketPageWidget.route());
+            // print("Move");
+            Navigator.push(context, HomePageWidget.route());
           }
         } else {
-          print("Error");
+          // print("Error");
           error.fire();
           Future.delayed(
             Duration(seconds: 2),

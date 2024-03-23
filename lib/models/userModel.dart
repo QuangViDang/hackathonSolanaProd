@@ -20,19 +20,13 @@ class AuthModel {
 }
 
 class WalletAddressModel {
-  final String? walletAddress;
+  String walletAddress = "";
 
-  WalletAddressModel({this.walletAddress});
+  WalletAddressModel({required this.walletAddress});
 
   factory WalletAddressModel.fromJson(Map<String, dynamic> json) {
     return WalletAddressModel(
       walletAddress: json['address'],
     );
-  }
-
-  Map<String, String?> toJson() {
-    return {
-      'address': walletAddress,
-    };
   }
 }
