@@ -1,5 +1,6 @@
 # auto_tickets_solana
 
+[![Uploading image.png…]()](https://news.kaopiz.com/wp-content/uploads/2024/02/Kaopiz.jpg)
 # Ứng dụng DApp AnalosTekcit trên nền tảng Solana:
 
 ## Project Description
