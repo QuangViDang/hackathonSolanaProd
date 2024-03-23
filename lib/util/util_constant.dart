@@ -48,8 +48,8 @@ StatusCode? parseStatusCode(int statusCode) {
 }
 
 class StatusMessage {
-  bool isSuccess = false;
-  String message = "Successfully";
+  bool isSuccess;
+  String message;
 
   StatusMessage(this.isSuccess, this.message);
 }

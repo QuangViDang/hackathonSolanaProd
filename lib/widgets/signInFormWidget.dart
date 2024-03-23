@@ -1,10 +1,13 @@
 import 'package:auto_tickets_solana/apis/auth_api.dart';
+import 'package:auto_tickets_solana/models/userModel.dart';
 import 'package:auto_tickets_solana/screens/home/ticketPageScreen.dart';
 import 'package:auto_tickets_solana/util/util_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rive/rive.dart';
+
+import '../providers/walletAddressProvider.dart';
 // import 'package:flutter_svg/svg.dart';
 
 class SignInForm extends StatefulWidget {
@@ -60,7 +63,11 @@ class _SignInFormState extends State<SignInForm> {
             },
           );
           statusRes = (await checkAuth(email, reference))!;
-          if (!statusRes.isSuccess) {
+          final walletAddressProvider = await WalletAddressDataProvider();
+          WalletAddressModel? addressCode =
+              await walletAddressProvider.getWalletAddress();
+          if (!statusRes.isSuccess || addressCode == null) {
+            print("Loading");
             error.fire();
             Future.delayed(
               Duration(seconds: 2),
@@ -71,9 +78,11 @@ class _SignInFormState extends State<SignInForm> {
               },
             );
           } else {
+            print("Move");
             Navigator.push(context, TicketPageWidget.route());
           }
         } else {
+          print("Error");
           error.fire();
           Future.delayed(
             Duration(seconds: 2),
