@@ -1,6 +1,7 @@
 # auto_tickets_solana
 
-[![Uploading image.png…]()](https://news.kaopiz.com/wp-content/uploads/2024/02/Kaopiz.jpg)
+![image](https://github.com/coronatusvi/AnalosTekcit_HackthonSolana/assets/89189270/f1803939-d4f1-4434-9eb6-3dca11792b7a)
+
 # Ứng dụng DApp AnalosTekcit trên nền tảng Solana:
 
 ## Project Description
