@@ -1,6 +1,8 @@
 import 'package:auto_tickets_solana/models/userModel.dart';
 import 'package:auto_tickets_solana/providers/userWalletProvider.dart';
+import 'package:auto_tickets_solana/providers/walletAddressProvider.dart';
 import 'package:auto_tickets_solana/screens/connectWallet/loginDialogScreen.dart';
+import 'package:auto_tickets_solana/screens/home/premiumDialogScreen.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,9 +28,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
     with TickerProviderStateMixin {
   late HomePageModel _model;
 
-  var isSignInDialogShown = false;
-
-  AuthModel? userAuthModel;
   String imageAccUrl = ''
       "https://upload.wikimedia.org/wikipedia/en/b/b9/Solana_logo.png";
   String imagePremiumUrl =
@@ -36,15 +35,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   void loginOnPress() {
-    Future.delayed(
-      const Duration(milliseconds: 800),
-      () {
-        setState(() {
-          isSignInDialogShown = true;
-        });
-        customSigninDialog(context, onClosed: (_) {});
-      },
-    );
+    customSigninDialog(context, onClosed: (_) {});
   }
 
   void showProfile() {
@@ -66,8 +57,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
   @override
   Widget build(BuildContext context) {
     final ticketProvider = TicketProvider();
-    final authProvider = Provider.of<AuthDataProvider>(context);
-    final userAuthModel = authProvider.getAuth();
+    final authProvider = Provider.of<WalletAddressDataProvider>(context);
+    String walletAddressCode = authProvider.getWalletAddress();
     return Scaffold(
       body: GestureDetector(
         onTap: () => _model.unfocusNode.canRequestFocus
@@ -80,7 +71,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 40, 20, 10),
+                padding: EdgeInsetsDirectional.fromSTEB(15, 40, 20, 15),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,9 +84,16 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         shape: BoxShape.circle,
                       ),
                       child: InkWell(
-                        onTap: () {},
-                        child: userAuthModel != null &&
-                                userAuthModel.email!.isNotEmpty
+                        onTap: () {
+                          if (walletAddressCode != "") {
+                            // Xử lý khi nhấn vào hồ sơ người dùng
+                            showProfile();
+                          } else {
+                            // Xử lý khi nhấn vào đăng nhập
+                            loginOnPress();
+                          }
+                        },
+                        child: walletAddressCode != ""
                             ? Image.network(
                                 imageAccUrl,
                                 width: 130,
@@ -117,7 +115,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         shape: BoxShape.circle,
                       ),
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          customShowPremiumDialog(context, onClosed: (_) {});
+                        },
                         child: Image.network(
                           imagePremiumUrl,
                           width: 130,
