@@ -5,14 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../models/ticketModel.dart';
 import '../../models/ticketPageModel.dart';
 export '../../models/ticketPageModel.dart';
 
 class TicketPageWidget extends StatefulWidget {
-  const TicketPageWidget({super.key});
+  const TicketPageWidget(ticket, {super.key});
 
-  static route() => MaterialPageRoute(
-        builder: (context) => TicketPageWidget(),
+  static route(TicketModel ticket) => MaterialPageRoute(
+        builder: (context) => TicketPageWidget(ticket),
       );
 
   @override
@@ -56,7 +57,18 @@ class _TicketPageWidgetState extends State<TicketPageWidget>
 
   @override
   Widget build(BuildContext context) {
-    String imageUrl = "http://scaffold";
+    final ticket = TicketModel(
+      title: 'Event',
+      imageUrl:
+          'https://blog.topcv.vn/wp-content/uploads/2021/07/sk2uEvents_Page_Header_2903ed9c-40c1-4f6c-9a69-70bb8415295b.jpg',
+      address: "",
+      timeEvent: "",
+      aboutEvent: "",
+      price: '50',
+      currency: "SQL",
+      ticket_code_to_attend: "A0001",
+      publisher: "EventPublisher",
+    );
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Color(0xFF1D0526),
@@ -67,8 +79,8 @@ class _TicketPageWidgetState extends State<TicketPageWidget>
               width: double.infinity,
               child: Stack(
                 children: [
-                  Image.asset(
-                    imageUrl,
+                  Image.network(
+                    ticket.imageUrl,
                     width: double.infinity,
                     height: 250,
                     fit: BoxFit.cover,
@@ -91,7 +103,6 @@ class _TicketPageWidgetState extends State<TicketPageWidget>
                             size: 30,
                           ),
                           onPressed: () {
-                            print("BackHome");
                             Navigator.push(
                               context,
                               HomePageWidget.route(),
@@ -151,7 +162,7 @@ class _TicketPageWidgetState extends State<TicketPageWidget>
                                       0, 0, 0, 2),
                                   child: SelectionArea(
                                     child: Text(
-                                      'Halloween Party',
+                                      ticket.title,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -165,7 +176,7 @@ class _TicketPageWidgetState extends State<TicketPageWidget>
                                 ),
                                 SelectionArea(
                                   child: Text(
-                                    'By FlutterFlowturn2',
+                                    "by ${ticket.publisher}",
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -246,7 +257,7 @@ class _TicketPageWidgetState extends State<TicketPageWidget>
                               ),
                               SelectionArea(
                                   child: Text(
-                                'Indonesia',
+                                ticket.address,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -273,7 +284,7 @@ class _TicketPageWidgetState extends State<TicketPageWidget>
                             ),
                             SelectionArea(
                                 child: Text(
-                              '21.00 PM - 01 AM',
+                              ticket.timeEvent,
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -426,29 +437,6 @@ class _TicketPageWidgetState extends State<TicketPageWidget>
                             ),
                           ],
                         ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              // FlutterFlowStaticMap(
-                              //   location: LatLng(40.740121, -73.990593),
-                              //   apiKey:
-                              //       'pk.eyJ1IjoicHJpbGx5amVhbmFsZGk2NjYiLCJhIjoiY2xhMTlsMnFrMDVlejN1bHp1dXMwZ3V1cSJ9.KGVhgtNP1NIxnqnFP7B-4A',
-                              //   style: mapbox.MapBoxStyle.Streets,
-                              //   width: 80,
-                              //   height: 80,
-                              //   fit: BoxFit.contain,
-                              //   borderRadius: BorderRadius.circular(10),
-                              //   markerColor: Color(0xFFFD7138),
-                              //   zoom: 6,
-                              //   tilt: 0,
-                              //   rotation: 0,
-                              // ),
-                            ],
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -481,7 +469,7 @@ class _TicketPageWidgetState extends State<TicketPageWidget>
                   ),
                   SelectionArea(
                       child: Text(
-                    'The nights are getting darker, Bandung is being overrun with massive spiders, and your local Big Supermarket has started flogging those cute little mini pumpkins again. You know what that means: Halloween 2022 is right around the corner.\n\nCome and Join Now!',
+                    ticket.aboutEvent,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Poppins',
                           color: Color(0x7BFFFFFF),
@@ -519,14 +507,18 @@ class _TicketPageWidgetState extends State<TicketPageWidget>
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return TicketDetailsWidget();
-                          },
-                        ),
-                      );
+                      Future.delayed(const Duration(seconds: 5), () {
+                        setState(() {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return TicketDetailsWidget();
+                              },
+                            ),
+                          );
+                        });
+                      });
                     },
                     child: Container(
                       width: 280,
@@ -565,7 +557,7 @@ class _TicketPageWidgetState extends State<TicketPageWidget>
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
                                 child: Text(
-                                  '0.004',
+                                  ticket.price,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -577,7 +569,7 @@ class _TicketPageWidgetState extends State<TicketPageWidget>
                                 ),
                               ),
                               Text(
-                                'SOL',
+                                ticket.currency,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

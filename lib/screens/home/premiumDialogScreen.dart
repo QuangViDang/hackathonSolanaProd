@@ -45,10 +45,10 @@ Future<Object?> customShowPremiumDialog(BuildContext context,
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 16),
                     child: Text(
-                      "Nâng cấp lên Gói Premium ✨",
+                      "Nâng cấp NGAY \nlên Gói Premium ✨",
                       textAlign: TextAlign.center,
                       selectionColor: Colors.white,
-                      
+                      style: TextStyle(fontSize: 24),
                     ),
                   ),
                   const Padding(

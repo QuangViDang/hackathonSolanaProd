@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import '../models/ticketDetailModel.dart';
+import '../models/ticketModel.dart';
 export '../models/ticketDetailModel.dart';
 
 class TicketDetailsWidget extends StatefulWidget {
@@ -18,7 +19,10 @@ class _TicketDetailsWidgetState extends State<TicketDetailsWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => TicketDetailsModel());
+    _model = createModel(
+        context,
+        () =>
+            TicketDetailsModel()); // Chờ 5 giây trước khi xây dựng giao diện người dùng
   }
 
   @override
@@ -30,6 +34,18 @@ class _TicketDetailsWidgetState extends State<TicketDetailsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final ticket = TicketModel(
+      title: 'Event',
+      imageUrl:
+          'https://blog.topcv.vn/wp-content/uploads/2021/07/sk2uEvents_Page_Header_2903ed9c-40c1-4f6c-9a69-70bb8415295b.jpg',
+      address: "",
+      timeEvent: "",
+      aboutEvent: "",
+      price: '50',
+      currency: "SQL",
+      ticket_code_to_attend: "A0001",
+      publisher: "EventPublisher",
+    );
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -39,8 +55,7 @@ class _TicketDetailsWidgetState extends State<TicketDetailsWidget> {
         backgroundColor: Color(0xFF1D0526),
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
+          child: ListView(
             children: [
               Padding(
                 padding: EdgeInsets.all(20),
@@ -106,8 +121,8 @@ class _TicketDetailsWidgetState extends State<TicketDetailsWidget> {
                                   padding: EdgeInsets.all(10),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(30),
-                                    child: Image.asset(
-                                      'assets/images/4183289.jpg',
+                                    child: Image.network(
+                                      ticket.imageUrl,
                                       width: double.infinity,
                                       height: 200,
                                       fit: BoxFit.cover,
@@ -129,7 +144,7 @@ class _TicketDetailsWidgetState extends State<TicketDetailsWidget> {
                                         children: [
                                           SelectionArea(
                                               child: Text(
-                                            'Halloween Party',
+                                            ticket.title,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -141,7 +156,7 @@ class _TicketDetailsWidgetState extends State<TicketDetailsWidget> {
                                           )),
                                           SelectionArea(
                                               child: Text(
-                                            'By Flutterflowturn2',
+                                            'By ${ticket.publisher}',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -200,7 +215,7 @@ class _TicketDetailsWidgetState extends State<TicketDetailsWidget> {
                                           )),
                                           SelectionArea(
                                               child: Text(
-                                            'Bandung, West Java Indonesia',
+                                            ticket.address,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -247,7 +262,7 @@ class _TicketDetailsWidgetState extends State<TicketDetailsWidget> {
                                                     0, 0, 0, 10),
                                             child: SelectionArea(
                                                 child: Text(
-                                              'John doe',
+                                              "My",
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -273,7 +288,7 @@ class _TicketDetailsWidgetState extends State<TicketDetailsWidget> {
                                           )),
                                           SelectionArea(
                                               child: Text(
-                                            '21:00 PM',
+                                            ticket.timeEvent,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -368,15 +383,6 @@ class _TicketDetailsWidgetState extends State<TicketDetailsWidget> {
                                     ],
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Image.asset(
-                                    'assets/images/barcode.png',
-                                    width: double.infinity,
-                                    height: 75,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
                               ],
                             ),
                           ),
@@ -420,7 +426,7 @@ class _TicketDetailsWidgetState extends State<TicketDetailsWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 300, 5, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 300, 5, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,

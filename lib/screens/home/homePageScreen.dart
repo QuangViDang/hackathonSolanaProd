@@ -1,8 +1,4 @@
-import 'package:auto_tickets_solana/models/userModel.dart';
-import 'package:auto_tickets_solana/providers/userWalletProvider.dart';
-import 'package:auto_tickets_solana/providers/walletAddressProvider.dart';
-import 'package:auto_tickets_solana/screens/connectWallet/loginDialogScreen.dart';
-import 'package:auto_tickets_solana/screens/home/premiumDialogScreen.dart';
+
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +6,10 @@ import 'package:provider/provider.dart';
 import '../../models/homePageModel.dart';
 import '../../models/ticketModel.dart';
 import '../../providers/listTicketProvider.dart';
+import '../../providers/walletAddressProvider.dart';
 import '../../widgets/ticketItemWidget.dart';
+import '../connectWallet/loginDialogScreen.dart';
+import 'premiumDialogScreen.dart';
 export '../../models/homePageModel.dart';
 
 class HomePageWidget extends StatefulWidget {
