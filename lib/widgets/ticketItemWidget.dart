@@ -46,7 +46,7 @@ class TicketItem extends StatelessWidget {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () {
-                          Navigator.push(context, TicketPageWidget.route());
+                          Navigator.push(context, TicketPageWidget.route(ticket));
                         },
                         child: Column(
                           mainAxisSize: MainAxisSize.max,

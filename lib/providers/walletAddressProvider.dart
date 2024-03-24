@@ -49,7 +49,7 @@ class WalletAddressDataProvider extends ChangeNotifier {
     return statusResponse;
   }
 
-  String getWalletAddress(BuildContext context) {
+  String getWalletAddress() {
     return _keyAddress;
   }
 }

@@ -14,25 +14,34 @@ class TicketProvider extends ChangeNotifier {
         address: "",
         timeEvent: "",
         aboutEvent: "",
-        price: '\$50',
+        price: '50',
+        currency: "SQL",
+        ticket_code_to_attend: "A0001",
+        publisher: "EventPublisher",
       ),
       TicketModel(
         title: 'Taylor Swift',
-        price: '\$75',
         imageUrl:
             'https://images.prestigeonline.com/wp-content/uploads/sites/6/2024/02/22150231/Taylor-Swift-themed-party-and-events-1.jpg',
         address: "",
         timeEvent: "",
         aboutEvent: "",
+        price: '75',
+        currency: "SQL",
+        ticket_code_to_attend: "A0001",
+        publisher: "EventPublisher",
       ),
       TicketModel(
         title: 'Born Pink',
-        price: '\$75',
         imageUrl:
             'https://cdn.tgdd.vn/Files/2023/06/27/1535956/bo-tui-ngay-nhung-mon-do-can-thiet-phai-mang-khi-di-concert-blackpink-o-ha-noi-202306270921181420.jpg',
         address: "",
         timeEvent: "",
         aboutEvent: "",
+        price: '10',
+        currency: "SQL",
+        ticket_code_to_attend: "A0001",
+        publisher: "EventPublisher",
       ),
     ];
   }

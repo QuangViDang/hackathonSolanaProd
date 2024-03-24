@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 
 import '../providers/walletAddressProvider.dart';
+import '../screens/home/premiumDialogScreen.dart';
 // import 'package:flutter_svg/svg.dart';
 
 class SignInForm extends StatefulWidget {
@@ -77,8 +78,8 @@ class _SignInFormState extends State<SignInForm> {
               },
             );
           } else {
-            // print("Move");
-            Navigator.push(context, HomePageWidget.route());
+          
+            customShowPremiumDialog(context, onClosed: (_) {});
           }
         } else {
           // print("Error");

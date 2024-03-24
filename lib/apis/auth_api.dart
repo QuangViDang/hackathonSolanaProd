@@ -34,7 +34,7 @@ Future<StatusMessage?> checkAuth(context, email, reference) async {
 
         String walletAddress =
             Provider.of<WalletAddressDataProvider>(context, listen: false)
-                .getWalletAddress(context);
+                .getWalletAddress();
         // print(walletAddress);
         if (walletAddress != "") {
           statusResponse.isSuccess = true;
