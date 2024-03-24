@@ -35,13 +35,14 @@ class TicketProvider extends ChangeNotifier {
         title: 'Born Pink',
         imageUrl:
             'https://cdn.tgdd.vn/Files/2023/06/27/1535956/bo-tui-ngay-nhung-mon-do-can-thiet-phai-mang-khi-di-concert-blackpink-o-ha-noi-202306270921181420.jpg',
-        address: "",
-        timeEvent: "",
-        aboutEvent: "",
+        address: "Ha Noi, VN",
+        timeEvent: "28/03",
+        aboutEvent:
+            "BlackPink sẽ quay lại Việt Nam vào năm 2024 \nTài khoản X mang tên 'BlackPink tour updates' đăng thông tin nhóm nhạc nữ hàng đầu Hàn Quốc sẽ trở lại Việt Nam vào năm 2024.",
         price: '10',
         currency: "SQL",
         ticket_code_to_attend: "A0001",
-        publisher: "EventPublisher",
+        publisher: "YG Entertainment",
       ),
     ];
   }

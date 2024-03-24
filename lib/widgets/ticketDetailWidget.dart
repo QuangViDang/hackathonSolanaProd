@@ -35,16 +35,17 @@ class _TicketDetailsWidgetState extends State<TicketDetailsWidget> {
   @override
   Widget build(BuildContext context) {
     final ticket = TicketModel(
-      title: 'Event',
+      title: 'Born Pink',
       imageUrl:
-          'https://blog.topcv.vn/wp-content/uploads/2021/07/sk2uEvents_Page_Header_2903ed9c-40c1-4f6c-9a69-70bb8415295b.jpg',
-      address: "",
-      timeEvent: "",
-      aboutEvent: "",
-      price: '50',
+          'https://cdn.tgdd.vn/Files/2023/06/27/1535956/bo-tui-ngay-nhung-mon-do-can-thiet-phai-mang-khi-di-concert-blackpink-o-ha-noi-202306270921181420.jpg',
+      address: "Ha Noi, VN",
+      timeEvent: "20:00 28/03",
+      aboutEvent:
+          "BlackPink sẽ quay lại Việt Nam vào năm 2024 \nTài khoản X mang tên 'BlackPink tour updates' đăng thông tin nhóm nhạc nữ hàng đầu Hàn Quốc sẽ trở lại Việt Nam vào năm 2024.",
+      price: '10',
       currency: "SQL",
       ticket_code_to_attend: "A0001",
-      publisher: "EventPublisher",
+      publisher: "YG Entertainment",
     );
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
@@ -276,7 +277,7 @@ class _TicketDetailsWidgetState extends State<TicketDetailsWidget> {
                                           ),
                                           SelectionArea(
                                               child: Text(
-                                            'Date',
+                                            'Time Event',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -348,7 +349,7 @@ class _TicketDetailsWidgetState extends State<TicketDetailsWidget> {
                                           )),
                                           SelectionArea(
                                               child: Text(
-                                            'Halloween',
+                                            'Music BP',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
